@@ -78,3 +78,70 @@ exports.logoutUser = async (req, res, next) => {
     message: "logged out",
   });
 };
+
+// user details
+exports.getUserDetails = async (req, res, next) => {
+  try {
+    const user = await userSchema.findById(req.User.id);
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
+// update user password
+exports.updateUserPassword = async (req, res, next) => {
+  try {
+    const user = await userSchema.findById(req.User.id).select("+password");
+
+    const isPasswordMatched = await user.comparePasswords(req.body.oldPassword);
+
+    if (!isPasswordMatched) {
+      return next(new ErrorHandler("please enter correct password", 401));
+    }
+
+    if (req.body.newPassword !== req.body.confirmPassword) {
+      return next(
+        new ErrorHandler("password does not match confirm password", 400)
+      );
+    }
+
+    user.password = req.body.newPassword;
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      user,
+    });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
+// update user profile
+exports.updateUserProfile = async (req, res, next) => {
+  try {
+    const newUserData = {
+      name: req.body.name,
+      email: req.body.email,
+    };
+
+    const User = await userSchema.findByIdAndUpdate(req.User.id, newUserData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
+
+    res.status(200).json({
+      success: true,
+      User,
+    });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};

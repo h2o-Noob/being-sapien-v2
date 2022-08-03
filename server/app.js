@@ -5,8 +5,10 @@ const app = express();
 const path = require("path")
 const bodyParser = require("body-parser")
 const fileUpload = require("express-fileUpload")
+const cookieParser = require("cookie-parser")
 
 app.use(express.json())
+app.use(cookieParser())
 app.use(fileUpload())
 app.use(bodyParser.urlencoded({ extended: true }))
 
