@@ -145,3 +145,89 @@ exports.updateUserProfile = async (req, res, next) => {
     res.status(400).json(error.message);
   }
 };
+
+// get all users
+exports.getAllUsers = async (req, res, next) => {
+  try {
+    const users = await userSchema.find();
+
+    res.status(200).json({
+      success: true,
+      message: "all users displayed successfully",
+      users,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// get single user
+exports.getSingleUser = async (req, res, next) => {
+  try {
+    const user = await userSchema.findById(req.params.id);
+
+    if (!user) {
+      next(new ErrorHandler(`User with id: ${req.params.id} not found`));
+    }
+    res.status(200).json({
+      success: true,
+      message: "user found successfully",
+      user,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+// update roles
+exports.updateRole = async (req, res, next) => {
+  try {
+
+    const newUserData = {
+      name: req.body.name,
+      email: req.body.email,
+      role: req.body.role,
+    };
+  
+    const User = await userSchema.findByIdAndUpdate(req.params.id, newUserData, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `role updated to ${req.body.role}`,
+      User,
+    });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
+// delete user
+exports.deleteUser = async (req, res, next) => {
+  try {
+
+    const User = await userSchema.findByIdAndDelete(req.params.id);
+
+    if(!User){
+      next(new ErrorHandler(`user with id: ${req.params.id} not found`))
+    }
+
+    await User.remove()
+
+    res.status(200).json({
+      success: true,
+      message: "user removed successfully"
+    });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
