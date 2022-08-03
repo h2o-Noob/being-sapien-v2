@@ -1,5 +1,5 @@
 const reportSchema = require("../models/ReportModel");
-const ErrorHandler = require("../utlis/errorHandler");
+const ErrorHandler = require("../utils/errorHandler");
 
 // create report
 exports.createReport = async (req, res, next) => {

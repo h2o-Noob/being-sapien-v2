@@ -5,7 +5,6 @@ const sendtoken = require("../utils/jwt");
 // register user
 exports.registerUser = async (req, res, next) => {
   try {
-    
     const { name, email, password } = req.body;
 
     const User = await userSchema.create({
@@ -27,10 +26,12 @@ exports.registerUser = async (req, res, next) => {
       );
     }
 
-    let fault = Object.keys(err.errors)[0];
-    return next(
-      new ErrorHandler(`${fault} requires minimum 3 charecters`, 400)
-    );
+    if ((Object.keys(err)[0])) {
+      return next(
+        new ErrorHandler(`${fault} requires minimum 3 charecters`, 400)
+      );
+    }
+    res.status(400).json(err.message)
   }
 };
 
@@ -77,4 +78,3 @@ exports.logoutUser = async (req, res, next) => {
     message: "logged out",
   });
 };
-
