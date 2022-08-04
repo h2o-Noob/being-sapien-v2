@@ -20,6 +20,9 @@ app.use("/", reports)
 const users = require("./routes/UserRoutes")
 app.use("/", users)
 
+const treats = require("./routes/TreatRoutes")
+app.use("/", treats)
+
 // error middleware
 app.use(errorMiddleware)
 

@@ -1,5 +1,4 @@
-const treatSchema = require("../models/TreatModels");
-const reportSchema = require("../models/ReportModels");
+const treatSchema = require("../models/TreatModel");
 const ErrorHandler = require("../utils/errorHandler");
 
 // create new treat

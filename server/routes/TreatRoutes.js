@@ -1,5 +1,6 @@
 const express = require("express")
 const { createNewTreat, getSingleTreat, myTreats, allTreats, updateTreat, deletTreat } = require("../controllers/TreatController")
+const { isAuthenticatedUser } = require("../middleware/auth");
 
 const router = express.Router()
 
