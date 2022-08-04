@@ -6,7 +6,7 @@ class ApiFeatures {
   search() {
     const keyword = this.queryStr.keyword
       ? {
-          animal: {
+          area: {
             $regex: this.queryStr.keyword,
             $options: "i",
           },
