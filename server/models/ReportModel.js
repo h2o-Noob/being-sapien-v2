@@ -25,6 +25,10 @@ const reportSchema = new mongoose.Schema({
       },
     },
   ],
+  area: {
+    type: String,
+    required: true,
+  },
   location: {
     adress: {
       type: String,

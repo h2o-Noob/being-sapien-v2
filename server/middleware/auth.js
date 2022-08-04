@@ -20,3 +20,20 @@ exports.isAuthenticatedUser = async (req, res, next) => {
     res.status(401).json(err.message);
   }
 };
+
+// roles
+exports.authorizedRole = (role) => {
+  
+  return (req, res, next) => {
+    if (role != req.User.role) {
+      return next(
+        new ErrorHandler(
+          `Role: ${req.User.role} is not allowed access here`,
+          403
+        )
+      );
+    }
+
+    next();
+  };
+};

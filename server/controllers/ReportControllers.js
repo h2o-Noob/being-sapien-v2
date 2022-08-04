@@ -1,12 +1,11 @@
 const reportSchema = require("../models/ReportModel");
+const ApiFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
 
 // create report
 exports.createReport = async (req, res, next) => {
     try {
   
-    //   req.body.user = req.User.id;
-
       const number = await reportSchema.countDocuments() + 1
   
       req.body.number = number
@@ -28,7 +27,13 @@ exports.createReport = async (req, res, next) => {
 exports.getAllReports = async (req, res, next) => {
   try {
     
-    const reports = await reportSchema.find();
+    const resultPerPage = 8
+
+    const apiFeatures = new ApiFeatures(reportSchema.find(), req.query)
+      .search()
+      .pagination(resultPerPage);
+
+      const reports = await apiFeatures.query;
 
     res.status(200).json({
       success: true,
@@ -72,7 +77,7 @@ exports.updateReport = async (req, res, next) => {
 
     res.status(200).json({
       message: "report updated",
-      data: report,
+      report,
       success: true
     });
   } catch (error) {

@@ -1,6 +1,6 @@
 const express = require("express")
 const { createNewTreat, getSingleTreat, myTreats, allTreats, updateTreat, deletTreat } = require("../controllers/TreatController")
-const { isAuthenticatedUser } = require("../middleware/auth");
+const { isAuthenticatedUser, authorizedRole } = require("../middleware/auth");
 
 const router = express.Router()
 
@@ -18,11 +18,11 @@ router
 
 router
 .route("/admin/treats")
-.get(isAuthenticatedUser, allTreats)
+.get(isAuthenticatedUser, authorizedRole("admin"), allTreats)
 
 router
 .route("/admin/treat/:id")
-.put(isAuthenticatedUser, updateTreat)
-.delete(isAuthenticatedUser, deletTreat)
+.put(isAuthenticatedUser, authorizedRole("admin"), updateTreat)
+.delete(isAuthenticatedUser, authorizedRole("admin"), deletTreat)
 
 module.exports = router;

@@ -69,7 +69,7 @@ exports.allTreats = async (req, res, next) => {
     let totalPrice = 0;
 
     treats.forEach((treat) => {
-      totalPrice += treat.totalPrice;
+      totalPrice += treat.ammount;
     });
 
     res.status(200).json({
@@ -90,13 +90,13 @@ exports.updateTreat = async (req, res, next) => {
   try {
     const treat = await treatSchema.findById(req.params.id);
 
-    if (treat.treatStatus === "Fed") {
+    if (treat.treatStatus === "fed") {
       return next(new ErrorHandler("this treat is fed", 404));
     }
 
     treat.treatStatus = req.body.status;
 
-    if (req.body.status === "Fed") {
+    if (req.body.status === "fed") {
       treat.fedAt = Date.now();
     }
 
@@ -104,7 +104,7 @@ exports.updateTreat = async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data: treat,
+      treat,
     });
   } catch (error) {
     res.status(400).json({
