@@ -6,7 +6,12 @@ exports.createReport = async (req, res, next) => {
     try {
   
     //   req.body.user = req.User.id;
+
+      const number = await reportSchema.countDocuments() + 1
   
+      req.body.number = number
+      req.body.user = req.User.id;
+
       const report = await reportSchema.create(req.body);
       
       res.status(200).json({

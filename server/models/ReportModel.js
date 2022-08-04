@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const reportSchema = new mongoose.Schema({
+  number: {
+    type: Number,
+    required: true
+  },
   animal: {
     type: String,
     required: [true, "animal not found"],
@@ -39,11 +43,11 @@ const reportSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  // user: {
-  //   type: mongoose.Schema.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // },
+  user: {
+    type: mongoose.Schema.ObjectId,
+    ref: "User",
+    required: true,
+  },
   createdAt: {
     type: String,
     default: Date.now,
