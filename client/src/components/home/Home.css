@@ -1,0 +1,43 @@
+.banner {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vmin;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(29, 180, 0);
+}
+
+.heading {
+    display: flex;
+}
+
+.heading > h1 {
+  margin: 3vmax;
+
+  font: 900 5vmax "Roboto";
+
+  z-index: 10;
+}
+
+.being {
+    color: #232222;
+}
+
+.sapien {
+    color: rgb(29, 180, 0);
+}
+.banner::after {
+  content: "";
+  width: 100vw;
+  height: 100vmin;
+  background-color: #232222;
+  position: absolute;
+  top: 0%;
+  left: 0;
+  clip-path: polygon(58% 0, 100% 0, 100% 100%, 40% 100%);
+  max-width: 100%;
+}
