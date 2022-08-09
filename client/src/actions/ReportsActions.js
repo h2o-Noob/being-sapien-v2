@@ -31,23 +31,27 @@ import {
 } from "../constants/ReportConstants";
 
 // get reports
-export const getReports = () =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: ALL_REPORT_REQUEST });
+export const getReports = () => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_REPORT_REQUEST });
 
-      let link = `https://beingsapienapi-7743.herokuapp.com/reports`
-    
-      const { data } = await axios.get(link);
+    let link = `https://beingsapienapi-7743.herokuapp.com/reports`;
 
-      dispatch({
-        type: ALL_REPORT_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: ALL_REPORT_FAIL,
-        payload: error.response.data.message,
-      });
-    }
+    const { data } = await axios.get(link);
+
+    dispatch({
+      type: ALL_REPORT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: ALL_REPORT_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
+// clearing errors
+export const clearError = () => async (dispatch) => {
+  dispatch({ type: CLEAR_ERRORS });
 };

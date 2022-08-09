@@ -45,7 +45,7 @@ import {
       case ALL_REPORT_SUCCESS:
         return {
           loading: false,
-          Reports: action.payload.Reports,
+          Reports: action.payload.reports,
           ReportsCount: action.payload.ReportsCount,
           resultPerPage: action.payload.resultPerPage,
         };
