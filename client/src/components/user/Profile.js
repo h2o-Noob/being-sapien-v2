@@ -10,7 +10,7 @@ const Profile = () => {
   const { user, loading, isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
-    isAuthenticated ? navigate("/account") : navigate("/");
+    isAuthenticated ? navigate("/account") : navigate("/login");
   }, [useNavigate(), isAuthenticated]);
   return (
     <Fragment>
@@ -21,7 +21,7 @@ const Profile = () => {
           <div className="profileContainer">
             <div>
               <h1>My Profile</h1>
-              {user ? <img src={user.avatar.url} alt={user.name} /> : null}
+              {/* { user ? <img src={user.avatar.url} alt={user.name} /> : null} */}
               <Link to="/me/update">Edit Profile</Link>
             </div>
             <div>

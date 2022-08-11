@@ -35,7 +35,7 @@ export const getReports = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_REPORT_REQUEST });
 
-    let link = `https://beingsapienapi-7743.herokuapp.com/reports`;
+    let link = `/api/reports`;
 
     const { data } = await axios.get(link);
 
@@ -47,6 +47,25 @@ export const getReports = () => async (dispatch) => {
     dispatch({
       type: ALL_REPORT_FAIL,
       payload: error.response.data.message,
+    });
+  }
+};
+
+// report details
+export const reportDetails = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: REPORT_DETAILS_REQUEST });
+
+    const { data } = await axios.get(`/api/report/${id}`);
+
+    dispatch({
+      type: REPORT_DETAILS_SUCCESS,
+      payload: data.report,
+    });
+  } catch (error) {
+    dispatch({
+      type: REPORT_DETAILS_FAIL,
+      payload: error.response.data.error,
     });
   }
 };

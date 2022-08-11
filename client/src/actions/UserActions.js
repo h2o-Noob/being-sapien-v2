@@ -50,7 +50,7 @@ export const login = (email, password) => async (dispatch) => {
     const config = { headers: { "Content-Type": "application/json" } };
 
     const { data } = await axios.post(
-      `https://beingsapienapi-7743.herokuapp.com/login`,
+      `/api/login`,
       { email, password },
       config
     );
@@ -68,11 +68,7 @@ export const register = (userData) => async (dispatch) => {
 
     const config = { headers: { "Content-Type": "multipart/form-data" } };
 
-    const { data } = await axios.post(
-      `https://beingsapienapi-7743.herokuapp.com/register`,
-      userData,
-      config
-    );
+    const { data } = await axios.post(`/api/register`, userData, config);
 
     dispatch({ type: REGISTER_USER_SUCCESS, payload: data.user });
   } catch (error) {
@@ -83,10 +79,23 @@ export const register = (userData) => async (dispatch) => {
   }
 };
 
+// load user
+export const loadUser = () => async (dispatch) => {
+  try {
+    dispatch({ type: LOAD_USER_REQUEST });
+
+    const { data } = await axios.get(`/api/me`);
+
+    dispatch({ type: LOAD_USER_SUCCESS, payload: data.user });
+  } catch (error) {
+    dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.error });
+  }
+};
+
 // logout
 export const logout = () => async (dispatch) => {
   try {
-    await axios.get(`https://beingsapienapi-7743.herokuapp.com/logout`);
+    await axios.get(`/api/logout`);
 
     dispatch({ type: LOGOUT_SUCCESS });
   } catch (error) {

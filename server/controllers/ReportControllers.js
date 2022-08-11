@@ -49,7 +49,7 @@ exports.getAllReports = async (req, res, next) => {
 exports.getReportDetails = async (req, res, next) => {
   try {
     
-    const report = await reportSchema.findById(req.params.id);
+    const report = await reportSchema.findById(req.params.id).populate("user", "name avatar email");
 
     if (!report) {
       return next(new ErrorHandler("report not found", 404));

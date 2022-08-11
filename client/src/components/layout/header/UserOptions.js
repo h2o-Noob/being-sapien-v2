@@ -42,8 +42,8 @@ const UserOptions = ({ user }) => {
     navigate("/account");
   }
   function logoutUser() {
-    dispatch(logout());
     navigate("/login");
+    dispatch(logout());
     alert.success("Logout Successfully");
   }
   const [open, setOpen] = useState(false);

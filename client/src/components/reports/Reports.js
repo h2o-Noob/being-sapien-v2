@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getReports, clearError } from "../../actions/ReportsActions";
+import { getReports, clearError, reportDetails } from "../../actions/ReportsActions";
 import "./Reports.css";
 import Loader from "../layout/loader/Loader";
 import Typography from '@mui/material/Typography';
@@ -48,6 +48,7 @@ const Reports = () => {
     }
 
     dispatch(getReports(keyword, currentPage, category));
+    dispatch(reportDetails("62f15c9e9cd9ff4765601532"))
   }, [dispatch, error, keyword, currentPage, category]);
 
   return (
