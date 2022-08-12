@@ -21,7 +21,7 @@ const Profile = () => {
           <div className="profileContainer">
             <div>
               <h1>My Profile</h1>
-              {/* { user ? <img src={user.avatar.url} alt={user.name} /> : null} */}
+              { user ? <img src={user.avatar.url} alt={user.name} /> : null}
               <Link to="/me/update">Edit Profile</Link>
             </div>
             <div>

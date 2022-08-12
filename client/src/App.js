@@ -12,6 +12,7 @@ import store from "./store"
 import { loadUser } from './actions/UserActions';
 import ReportDetails from './components/reports/ReportDetails';
 import WebFont from "webfontloader";
+import { reportDetails } from './actions/ReportsActions';
 
 
 function App() {

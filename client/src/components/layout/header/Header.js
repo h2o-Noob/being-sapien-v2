@@ -5,8 +5,8 @@ import {FaUser} from 'react-icons/fa'
 import "./Header.css"
 
 const options = {
-    burgerColorHover: "#eb4034",
-    burgerColor: "#232222",
+    burgerColorHover: "rgb(29, 100, 0)",
+    burgerColor: "white",
     logo,
     logoWidth: "20vmax",
     navColor1: "rgba(131, 131, 131, 0.98)",

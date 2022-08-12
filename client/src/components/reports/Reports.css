@@ -1,9 +1,9 @@
 .reportsHeading {
   margin: 2vmax auto;
   width: 15vw;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.171);
+  border-bottom: 1px solid rgb(29, 180, 0);
   padding: 2vmax;
-  color: rgba(0, 0, 0, 0.678);
+  color: rgb(29, 180, 0);
   font: 500 1.5vmax "Roboto";
   text-align: center;
 }
@@ -79,14 +79,14 @@
 
 .category-link {
   list-style: none;
-  color: rgba(0, 0, 0, 0.61);
-  font: 400 0.8vmax "Roboto";
+  color: white;
+  font: 400 1vmax "Roboto";
   margin: 0.4vmax;
   cursor: pointer;
   transition: all 0.5s;
 }
 .category-link:hover {
-  color: tomato;
+  color: rgb(29, 180, 0);
 }
 
 .filterBox > fieldset {

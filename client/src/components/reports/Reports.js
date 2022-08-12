@@ -1,45 +1,38 @@
 import React, { Fragment, useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getReports, clearError, reportDetails } from "../../actions/ReportsActions";
+import {
+  getReports,
+  clearError,
+  reportDetails,
+} from "../../actions/ReportsActions";
 import "./Reports.css";
 import Loader from "../layout/loader/Loader";
-import Typography from '@mui/material/Typography';
-import ReportCard from "./ReportCard"
-import { useParams } from "react-router-dom";
+import Typography from "@mui/material/Typography";
+import ReportCard from "./ReportCard";
 
 const Reports = () => {
-
-  // const categories = [
-  //   "Laptop",
-  //   "Footwear",
-  //   "Bottom",
-  //   "Tops",
-  //   "Attire",
-  //   "Camera",
-  //   "SmartPhones",
-  //   "sport",
-  // ];
-  const [category, setCategory] = useState("");
+  const cities = [
+    "north delhi",
+    "east delhi",
+    "south delhi",
+    "west delhi",
+    "faridabad",
+    "gugaon",
+    "noida",
+  ];
+  const [city, setCity] = useState("");
 
   const [currentPage, setCurrentPage] = useState(1);
   const setCurrentPageNo = (e) => {
     setCurrentPage(e);
   };
 
-  const [price, setPrice] = useState([0, 25000]);
-  const priceHandler = (event, newPrice) => {
-    setPrice(newPrice);
-  };
-
-  const [ratings, setRatings] = useState(0);
-
   const dispatch = useDispatch();
-  const params = useParams();
-  const keyword = params.keyword;
 
-  const { Reports, loading, error, resultPerPage, reportsCount } =
-    useSelector((state) => state.reports);
+  const { Reports, loading, error, resultPerPage, reportsCount } = useSelector(
+    (state) => state.reports
+  );
 
   useEffect(() => {
     if (error) {
@@ -47,9 +40,11 @@ const Reports = () => {
       dispatch(clearError());
     }
 
-    dispatch(getReports(keyword, currentPage, category));
-    dispatch(reportDetails("62f15c9e9cd9ff4765601532"))
-  }, [dispatch, error, keyword, currentPage, category]);
+    dispatch(reportDetails("62f15c9e9cd9ff4765601532"));
+    dispatch(getReports(city));
+  }, [error, city, currentPage]);
+
+  console.log(Reports);
 
   return (
     <Fragment>
@@ -57,18 +52,23 @@ const Reports = () => {
         <Loader />
       ) : (
         <Fragment>
-          <h2 className="reportsHeading">reports</h2>
-          <div className="reports">
-            {Reports &&
-              Reports.map((report) => (
-                <ReportCard key={report._id} report={report} />
-              ))}
-          </div>
-          {resultPerPage < reportsCount && (
-            <div className="paginationBox">
-              {/* <Pagination
-                activePage={currentPage}
-                itemsCountPerPage={resultPerPage}
+          <div style={{backgroundColor: "#232222"}}>
+            {Reports.length == 0 ? (
+              <h2 className="reportsHeading">No reports in this area</h2>
+            ) : (
+              <h2 className="reportsHeading">Reports</h2>
+            )}
+            <div className="reports">
+              {Reports &&
+                Reports.map((report) => (
+                  <ReportCard key={report._id} report={report} />
+                ))}
+            </div>
+            {resultPerPage < reportsCount && (
+              <div className="paginationBox">
+                {/* <Pagination
+              activePage={currentPage}
+              itemsCountPerPage={resultPerPage}
                 totalItemsCount={reportsCount}
                 onChange={setCurrentPageNo}
                 nextPageText="Next"
@@ -80,25 +80,22 @@ const Reports = () => {
                 activeClass="pageItemActive"
                 activeLinkClass="pageLinkActive"
               /> */}
+              </div>
+            )}
+            <div className="filterBox">
+              <Typography style={{color: "rgb(29, 180, 0)"}}>Cities:</Typography>
+              <ul className="categoryBox">
+                {cities.map((city) => (
+                  <li
+                    className="category-link"
+                    key={city}
+                    onClick={() => setCity(city)}
+                  >
+                    {city}
+                  </li>
+                ))}
+              </ul>
             </div>
-          )}
-          <div className="filterBox">
-            <Typography>Price</Typography>
-            <Typography>Categories</Typography>
-            {/* <ul className="categoryBox">
-              {categories.map((category) => (
-                <li
-                  className="category-link"
-                  key={category}
-                  onClick={() => setCategory(category)}
-                >
-                  {category}
-                </li>
-              ))}
-            </ul> */}
-            <fieldset>
-              <Typography component="legend">Ratings Above</Typography>
-            </fieldset>
           </div>
         </Fragment>
       )}

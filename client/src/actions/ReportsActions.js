@@ -31,11 +31,11 @@ import {
 } from "../constants/ReportConstants";
 
 // get reports
-export const getReports = () => async (dispatch) => {
+export const getReports = (keyword="") => async (dispatch) => {
   try {
     dispatch({ type: ALL_REPORT_REQUEST });
 
-    let link = `/api/reports`;
+    let link = `/api/reports?keyword=${keyword}`;
 
     const { data } = await axios.get(link);
 
