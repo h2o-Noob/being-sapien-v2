@@ -67,10 +67,10 @@
 }
 
 .filterBox {
-  width: 10vmax;
+  width: 20vmax;
   position: absolute;
   top: 10vmax;
-  left: 4vmax;
+  left: 1.5vmax;
 }
 
 .categoryBox {

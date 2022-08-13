@@ -17,6 +17,7 @@ const Reports = () => {
     "east delhi",
     "south delhi",
     "west delhi",
+    "new delhi",
     "faridabad",
     "gugaon",
     "noida",

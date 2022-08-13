@@ -70,6 +70,33 @@ export const reportDetails = (id) => async (dispatch) => {
   }
 };
 
+// create report
+export const createReport = (reportData) => async (dispatch) => {
+  try {
+    dispatch({ type: NEW_REPORT_REQUEST });
+
+    const config = {
+      headers: { "Content-Type": "application/json" },
+    };
+
+    const { data } = await axios.post(
+      `/api/reports`,
+      reportData,
+      config
+    );
+
+    dispatch({
+      type: NEW_REPORT_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NEW_REPORT_FAIL,
+      payload: error.response.data.error,
+    });
+  }
+};
+
 // clearing errors
 export const clearError = () => async (dispatch) => {
   dispatch({ type: CLEAR_ERRORS });

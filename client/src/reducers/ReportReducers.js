@@ -96,3 +96,36 @@ export const ReportDetailsReducer = (state = { report: {} }, action) => {
       return state;
   }
 };
+
+export const NewReportReducer = (state = { report: {} }, action) => {
+  switch (action.type) {
+    case NEW_REPORT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case NEW_REPORT_SUCCESS:
+      return {
+        loading: false,
+        success: action.payload.success,
+        report: action.payload.data,
+      };
+    case NEW_REPORT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case NEW_REPORT_RESET:
+      return {
+        ...state,
+        success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};

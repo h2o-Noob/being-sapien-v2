@@ -92,6 +92,17 @@
   background-color: rgb(21, 128, 0);
 }
 
+.createReportBox > a {
+  text-decoration: none;
+  color: rgb(29, 180, 0);
+}
+
+.createReportBox > a:hover {
+  text-decoration: none;
+  color: white;
+  background-color: rgb(29, 180, 0);
+}
+
 @media screen and (max-width: 600px) {
   .profileContainer {
     flex-direction: column;
