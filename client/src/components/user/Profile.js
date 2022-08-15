@@ -23,6 +23,7 @@ const Profile = () => {
               <h1>My Profile</h1>
               { user ? <img src={user.avatar.url} alt={user.name} /> : null}
               <Link to="/me/update">Edit Profile</Link>
+              <Link to="/password/update">Change Password</Link>
             </div>
             <div>
               <div>
@@ -39,8 +40,8 @@ const Profile = () => {
               </div>
 
               <div>
-                <Link to="/orders">My Orders</Link>
-                <Link to="/password/update">Change Password</Link>
+                <Link to="/me/reports">My Reports</Link>
+                <Link to="/me/treats">My Treats</Link>
               </div>
             </div>
           </div>

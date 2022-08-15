@@ -14,6 +14,7 @@ import ReportDetails from './components/reports/ReportDetails';
 import WebFont from "webfontloader";
 import { reportDetails } from './actions/ReportsActions';
 import NewReport from './components/reports/NewReport';
+import Treats from './components/treats/Treats';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route exact path = "/reports" element={<Reports/>} />
         <Route exact path = "/report/:id" element={<ReportDetails/>} />
         <Route exact path = "/reports/new" element={<NewReport/>} />
+        <Route exact path = "/me/treats" element={<Treats/>} />
       </Routes>
     </BrowserRouter>
   );

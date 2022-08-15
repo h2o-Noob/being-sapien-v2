@@ -3,12 +3,15 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { UserReducer } from "./reducers/UserReducers";
 import { NewReportReducer, ReportDetailsReducer, ReportsReducer } from "./reducers/ReportReducers";
+import { myTreatsReducer, reportTreatsReducer } from "./reducers/TreatReducer";
 
 const reducer = combineReducers({
     user: UserReducer,
     reports: ReportsReducer,
     reportDetails: ReportDetailsReducer,
-    newReport: NewReportReducer
+    newReport: NewReportReducer,
+    myTreats: myTreatsReducer,
+    reportTreats: reportTreatsReducer
 });
 
 let initialState = {};

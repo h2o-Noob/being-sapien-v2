@@ -19,7 +19,8 @@
 }
 
 .ProductDetails > div:last-child {
-  align-items: flex-start;
+  display: flex;
+  align-items: center;
 }
 
 .CarouselImage {
@@ -29,6 +30,7 @@
 .detailsBlock-1 > h2 {
   color: rgb(29, 180, 0);
   font: 600 1.6vmax "Roboto";
+  text-align: center;
 }
 
 .detailsBlock-1 > p {
@@ -39,6 +41,7 @@
 .detailsBlock-1 > h4 {
   color: white;
   font: 200 1vmax cursive;
+  text-align: center;
 }
 
 .detailsBlock-2 {
@@ -52,6 +55,7 @@
 }
 
 .detailsBlock-2-span {
+  margin: auto;
   font: 300 1vmax cursive;
   color: rgb(29, 180, 0);
 }
@@ -60,6 +64,7 @@
   width: 70%;
   color: rgb(29, 180, 0);
   font: 400 1.8vmax "Franklin Gothic Medium";
+  text-align: center;
 }
 
 .detailsBlock-3 > h1 {
@@ -123,6 +128,7 @@
 .detailsBlock-4 {
   color: rgb(30, 181, 0);
   font: 500 1.2vmax sans-serif;
+  text-align: center;
 }
 
 .detailsBlock-4 > p {
@@ -160,10 +166,10 @@
 }
 
 .reviewsHeading {
-  color: #8e1515be;
+  color: rgb(29, 180, 0);
   font: 500 1.4vmax "Roboto";
   text-align: center;
-  border-bottom: 1px solid rgba(178, 15, 15, 0.226);
+  border-bottom: 1px solid rgb(29, 180, 0);
   padding: 1vmax;
   width: 20vmax;
   margin: auto;
@@ -172,11 +178,11 @@
 .reviews {
   display: flex;
   overflow: auto;
+  justify-content: center;
 }
 
 .reviewCard {
   flex: none;
-
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.226);
   border: 1px solid rgba(208, 20, 20, 0.116);
   width: 30vmax;
@@ -205,9 +211,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  
   .ProductDetails {
-    flex-direction: column;
     height: unset;
+    flex-direction: column;
   }
 
   .ProductDetails > div:last-child {
@@ -274,7 +281,6 @@
   .detailsBlock-4 {
     font: 500 2.5vmax sans-serif;
     justify-content: center;
-    margin-left: 8vmax;
   }
 
   .detailsBlock-4 > p {
@@ -286,12 +292,16 @@
     padding: 1.5vmax;
     width: 20vmax;
     margin: 3vmax 0;
-    margin-left: 5vmax;
+  }
+  
+  .reviews{
+    justify-content: flex-start;
   }
 
   .reviewCard > p {
     font: 600 3vw "Roboto";
   }
+
   .reviewCardComment {
     font: 300 5vw cursive;
   }

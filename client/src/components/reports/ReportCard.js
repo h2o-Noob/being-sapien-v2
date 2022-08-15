@@ -10,15 +10,22 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { green } from "@mui/material/colors";
 import { useSelector } from "react-redux";
+import "./ReportCard.css"
 
 const ReportCard = ({ report }) => {
 
   const { isAuthenticated } = useSelector((state) => state.user);
 
+  const windowWidth = ()=>{
+    return window.innerWidth
+  }
+
+  console.log(windowWidth())
+
   return (
     <Fragment>
       {report && (
-        <Card sx={{ maxWidth: 345 }} style={{ margin: "1rem", backgroundColor: "rgb(201, 199, 199)"}}>
+        <Card style={{ margin: "1rem", backgroundColor: "rgb(201, 199, 199)"}}>
           <CardHeader
             avatar={
               report ? (

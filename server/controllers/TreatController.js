@@ -29,7 +29,7 @@ exports.getSingleTreat = async (req, res, next) => {
   try {
     const treat = await treatSchema
       .findById(req.params.id)
-      .populate("user", "name email");
+      .populate("user", "name avatar")
 
     if (!treat) {
       next(new ErrorHandler("treat not found", 400));
@@ -50,7 +50,21 @@ exports.getSingleTreat = async (req, res, next) => {
 // user treats
 exports.myTreats = async (req, res, next) => {
   try {
-    const treats = await treatSchema.find({ user: req.User._id });
+    const treats = await treatSchema.find({ user: req.User._id }).populate("treatReport", "number");
+
+    res.status(200).json({
+      success: true,
+      treats,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error, 404));
+  }
+};
+
+// report treats
+exports.getReportTreats = async (req, res, next) => {
+  try {
+    const treats = await treatSchema.find({ treatReport: req.params.id }).populate("user", "name avatar");
 
     res.status(200).json({
       success: true,

@@ -2,15 +2,9 @@ const mongoose = require("mongoose");
 
 const treatSchema = new mongoose.Schema({
   treatReport: {
-    number: {
-      type: String,
-      required: true,
-    },
-    report: {
-      type: mongoose.Schema.ObjectId,
-      ref: "Report",
-      required: true,
-    },
+    type: mongoose.Schema.ObjectId,
+    ref: "Report",
+    required: true,
   },
   ammount: {
     type: Number,
@@ -45,6 +39,6 @@ const treatSchema = new mongoose.Schema({
     default: Date.now,
   },
   fedAt: Date,
-});
+}, {strictPopulate: false});
 
 module.exports = mongoose.model("Treat", treatSchema);

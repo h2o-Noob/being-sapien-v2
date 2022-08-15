@@ -12,10 +12,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Carousel from "react-bootstrap/Carousel";
 import Delayed from "../layout/Delayed";
-
+import { reportTreats } from "../../actions/TreatActions";
+import TreatCard from "../treats/TreatCard";
+import "./ReportDetails.css";
 
 const ReportDetails = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -26,6 +28,8 @@ const ReportDetails = () => {
     (state) => state.reportDetails
   );
 
+  const { treats } = useSelector((state) => state.reportTreats);
+
   const { isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -35,11 +39,12 @@ const ReportDetails = () => {
     }
 
     dispatch(reportDetails(params.id));
+    dispatch(reportTreats(params.id));
   }, [dispatch, params.id, error, alert]);
 
   const submitReviewToggle = () => {
     if (isAuthenticated === false) {
-      navigate("/login")
+      navigate("/login");
       return alert.error("you need to login");
     }
 
@@ -62,9 +67,9 @@ const ReportDetails = () => {
             <div className="ProductDetails">
               <Carousel.Item>
                 <img
-                className="CarouselImage"
-                src={report.images[0].url}
-                alt="First slide"
+                  className="CarouselImage"
+                  src={report.images[0].url}
+                  alt="First slide"
                 />
               </Carousel.Item>
               <div>
@@ -87,26 +92,24 @@ const ReportDetails = () => {
                 </div>
                 <br />
                 <div className="detailsBlock-4">
-                  Description : <p>{report.description}</p>
+                  Description<p>{report.description}</p>
                   <br />
                   <h3>Uploaded by:</h3>
                   <h5>{report.user.name}</h5>
                   <h5>{report.user.email}</h5>
                 </div>
                 <button onClick={submitReviewToggle} className="submitReview">
-                  submit review
+                  treat
                 </button>
               </div>
             </div>
-
-            <h3 className="reviewsHeading">Treats</h3>
 
             <Dialog
               aria-labelledby="simple-dialog-title"
               open={open}
               onClose={submitReviewToggle}
             >
-              <DialogTitle>Submit Review</DialogTitle>
+              <DialogTitle>Treat them</DialogTitle>
               <DialogContent className="submitDialog"></DialogContent>
               <DialogActions>
                 <Button onClick={submitReviewToggle} color="secondary">
@@ -117,6 +120,19 @@ const ReportDetails = () => {
                 </Button>
               </DialogActions>
             </Dialog>
+            {treats && !treats.length == 0 ? (
+              <h3 className="reviewsHeading">Treats</h3>
+            ) : null}
+            {treats && treats[0] ? (
+              <div className="reviews">
+                {treats &&
+                  treats.map((treat) => (
+                    <TreatCard className="reviewCard" treat={treat} />
+                  ))}
+              </div>
+            ) : (
+              <h3 className="reviewsHeading">No Treats Yet</h3>
+            )}
           </Delayed>
         </Fragment>
       )}
