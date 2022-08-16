@@ -178,7 +178,7 @@
 .reviews {
   display: flex;
   overflow: auto;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .reviewCard {
@@ -208,6 +208,10 @@
   font: 400 1.3vmax "Gill Sans";
   text-align: center;
   color: rgba(195, 43, 43, 0.548);
+}
+
+.modalTitle{
+  margin: 2vmax 13vmax;
 }
 
 @media screen and (max-width: 600px) {

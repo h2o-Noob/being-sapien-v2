@@ -13,20 +13,17 @@ const TreatCard = (treat) => {
         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
           treat id #{treat.treat._id}
         </Typography>
+        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+          {treat.treat.treatedAt.slice(0, 10)}
+        </Typography>
         <Typography variant="h5" component="div">
           ₹{treat.treat.ammount}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          status {treat.treat.treatStatus}
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          paymentId {treat.treat.paymentInfo._id}
-        </Typography>
-        <Typography variant="body2">well meaning and kindly.</Typography>
+        {treat.treat.comments ? <Typography variant="body2">{treat.treat.comments}</Typography> : <Typography variant="body2">NO COMMENTS</Typography>}
       </CardContent>
       <CardActions>{
         treat.treat.treatReport.number ? <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        for <Link to={`/report/${treat.treat.treatReport._id}`}style={{textDecoration: "none", color: "rgb(29, 120, 0)"}}>report number {treat.treat.treatReport.number}</Link>
+        for <Link to={`/report/${treat.treat.treatReport._id}`}style={{textDecoration: "none", color: "rgb(29, 120, 0)"}} target="_blank">report number {treat.treat.treatReport.number}</Link>
     </Typography> : <Typography sx={{ mb: 1.5 }} color="text.secondary">
         From <b>{treat.treat.user.name}</b>
     </Typography>

@@ -11,10 +11,11 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import Carousel from "react-bootstrap/Carousel";
-import Delayed from "../layout/Delayed";
 import { reportTreats } from "../../actions/TreatActions";
+import Paper from "@mui/material/Paper";
 import TreatCard from "../treats/TreatCard";
 import "./ReportDetails.css";
+import CreateTreat from "../treats/CreateTreat";
 
 const ReportDetails = () => {
   const navigate = useNavigate();
@@ -55,22 +56,19 @@ const ReportDetails = () => {
     setOpen(false);
   };
 
-  console.log(report);
-
   return (
     <Fragment>
       {loading ? (
         <Loader />
       ) : (
         <Fragment>
-          <Delayed waitBeforeShow={2000}>
             <div className="ProductDetails">
               <Carousel.Item>
-                <img
+                { report.images ? <img
                   className="CarouselImage"
                   src={report.images[0].url}
                   alt="First slide"
-                />
+                /> : null}
               </Carousel.Item>
               <div>
                 <div className="detailsBlock-1">
@@ -85,19 +83,19 @@ const ReportDetails = () => {
                   </span>
                 </div>
                 <br />
-                <div className="detailsBlock-3">
+                { report.location ? <div className="detailsBlock-3">
                   <h3>{`${report.location.adress}`}</h3>
                   <h3>{`${report.location.city}`}</h3>
                   <h3>{`${report.location.state}`}</h3>
-                </div>
+                </div> : null}
                 <br />
-                <div className="detailsBlock-4">
+                { report.user ? <div className="detailsBlock-4">
                   Description<p>{report.description}</p>
                   <br />
                   <h3>Uploaded by:</h3>
                   <h5>{report.user.name}</h5>
                   <h5>{report.user.email}</h5>
-                </div>
+                </div> : null}
                 <button onClick={submitReviewToggle} className="submitReview">
                   treat
                 </button>
@@ -109,16 +107,8 @@ const ReportDetails = () => {
               open={open}
               onClose={submitReviewToggle}
             >
-              <DialogTitle>Treat them</DialogTitle>
+                <CreateTreat treat={report._id}/>
               <DialogContent className="submitDialog"></DialogContent>
-              <DialogActions>
-                <Button onClick={submitReviewToggle} color="secondary">
-                  Cancel
-                </Button>
-                <Button onClick={reviewSubmitHandler} color="primary">
-                  Submit
-                </Button>
-              </DialogActions>
             </Dialog>
             {treats && !treats.length == 0 ? (
               <h3 className="reviewsHeading">Treats</h3>
@@ -133,7 +123,6 @@ const ReportDetails = () => {
             ) : (
               <h3 className="reviewsHeading">No Treats Yet</h3>
             )}
-          </Delayed>
         </Fragment>
       )}
     </Fragment>

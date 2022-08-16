@@ -6,6 +6,9 @@ const treatSchema = new mongoose.Schema({
     ref: "Report",
     required: true,
   },
+  comments: {
+    type: String
+  },
   ammount: {
     type: Number,
     required: true,

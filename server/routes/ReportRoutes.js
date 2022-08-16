@@ -15,7 +15,7 @@ router
 
 router
 .route("/report/:id")
-.get(isAuthenticatedUser, getReportDetails)
+.get(getReportDetails)
 .put(isAuthenticatedUser, updateReport)
 .delete(isAuthenticatedUser, deleteReport)
 

@@ -4,12 +4,13 @@ const ErrorHandler = require("../utils/errorHandler");
 // create new treat
 exports.createNewTreat = async (req, res, next) => {
   try {
-    const { treatReport, paymentInfo, ammount } = req.body;
+    const { treatReport, paymentInfo, ammount, comments } = req.body;
 
     const treat = await treatSchema.create({
       treatReport,
       paymentInfo,
       ammount,
+      comments,
       paidAt: Date.now(),
       user: req.User._id,
     });
