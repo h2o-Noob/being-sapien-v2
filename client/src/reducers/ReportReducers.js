@@ -5,6 +5,9 @@ import {
   ADMIN_REPORT_REQUEST,
   ADMIN_REPORT_SUCCESS,
   ADMIN_REPORT_FAIL,
+  USER_REPORT_REQUEST,
+  USER_REPORT_SUCCESS,
+  USER_REPORT_FAIL,
   NEW_REPORT_REQUEST,
   NEW_REPORT_SUCCESS,
   NEW_REPORT_FAIL,
@@ -119,6 +122,83 @@ export const NewReportReducer = (state = { report: {} }, action) => {
       return {
         ...state,
         success: false,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const MyReportsReducer = (state = { reports: [] }, action) => {
+  switch (action.type) {
+    case USER_REPORT_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case USER_REPORT_SUCCESS:
+      return {
+        loading: false,
+        reports: action.payload,
+      };
+
+    case USER_REPORT_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
+      };
+
+    default:
+      return state;
+  }
+};
+
+export const ReportReducer = (state = {}, action) => {
+  switch (action.type) {
+    case DELETE_REPORT_REQUEST:
+    case UPDATE_REPORT_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DELETE_REPORT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isDeleted: action.payload,
+      };
+
+    case UPDATE_REPORT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        isUpdated: true,
+        success: true
+      };
+    case DELETE_REPORT_FAIL:
+    case UPDATE_REPORT_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: action.payload,
+      };
+    case DELETE_REPORT_RESET:
+      return {
+        ...state,
+        isDeleted: false,
+      };
+    case UPDATE_REPORT_RESET:
+      return {
+        isUpdated: false,
       };
     case CLEAR_ERRORS:
       return {

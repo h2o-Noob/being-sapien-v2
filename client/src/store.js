@@ -1,18 +1,21 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { UserReducer } from "./reducers/UserReducers";
-import { NewReportReducer, ReportDetailsReducer, ReportsReducer } from "./reducers/ReportReducers";
-import { myTreatsReducer, newTreatReducer, reportTreatsReducer } from "./reducers/TreatReducer";
+import { ProfileReducer, UserReducer } from "./reducers/UserReducers";
+import { MyReportsReducer, NewReportReducer, ReportDetailsReducer, ReportReducer, ReportsReducer } from "./reducers/ReportReducers";
+import { MyTreatsReducer, NewTreatReducer, ReportTreatsReducer } from "./reducers/TreatReducer";
 
 const reducer = combineReducers({
     user: UserReducer,
+    profile: ProfileReducer,
     reports: ReportsReducer,
+    report: ReportReducer,
     reportDetails: ReportDetailsReducer,
     newReport: NewReportReducer,
-    myTreats: myTreatsReducer,
-    reportTreats: reportTreatsReducer,
-    newTreat: newTreatReducer
+    myTreats: MyTreatsReducer,
+    myReports: MyReportsReducer,
+    reportTreats: ReportTreatsReducer,
+    newTreat: NewTreatReducer
 });
 
 let initialState = {};

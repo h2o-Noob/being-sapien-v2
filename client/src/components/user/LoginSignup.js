@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors, register } from "../../actions/UserActions";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
-
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import PersonIcon from '@mui/icons-material/Person';
+import MailOutlinedIcon from '@mui/icons-material/MailOutlined';
 
 const LoginSignup = () => {
 
@@ -103,7 +105,7 @@ const LoginSignup = () => {
               </div>
               <form className="loginForm" ref={loginTab} onSubmit={loginSubmit}>
                 <div className="loginEmail">
-                  {/* <MailOutlineIcon /> */}
+                  <MailOutlinedIcon />
                   <input
                     type="email"
                     placeholder="Email"
@@ -113,7 +115,7 @@ const LoginSignup = () => {
                   />
                 </div>
                 <div className="loginPassword">
-                  {/* <LockOpenIcon /> */}
+                  <LockOpenIcon />
                   <input
                     type="password"
                     placeholder="Password"
@@ -131,7 +133,7 @@ const LoginSignup = () => {
                 onSubmit={registerSubmit}
               >
                 <div className="signUpName">
-                  {/* <FaceIcon /> */}
+                  <PersonIcon />
                   <input
                     type="text"
                     placeholder="Name"
@@ -142,7 +144,7 @@ const LoginSignup = () => {
                   />
                 </div>
                 <div className="signUpEmail">
-                  {/* <MailOutlineIcon /> */}
+                  <MailOutlinedIcon />
                   <input
                     type="email"
                     placeholder="Email"
@@ -153,23 +155,13 @@ const LoginSignup = () => {
                   />
                 </div>
                 <div className="signUpPassword">
-                  {/* <LockOpenIcon /> */}
+                  <LockOpenIcon />
                   <input
                     type="password"
                     placeholder="Password"
                     required
                     name="password"
                     value={password}
-                    onChange={registerDataChange}
-                  />
-                </div>
-
-                <div id="registerImage">
-                  <img src={avatarPreview} alt="Avatar Preview" />
-                  <input
-                    type="file"
-                    name="avatar"
-                    accept="image/*"
                     onChange={registerDataChange}
                   />
                 </div>

@@ -18,7 +18,6 @@ const UserOptions = ({ user }) => {
   const navigate = useNavigate();
 
   const options = [
-    { icon: <PetsIcon/>, name: "Treats", func: treats },
     { icon: <AccountBoxIcon/>, name: "Profile", func: account },
     { icon: <LogoutIcon/>, name: "Logout", func: logoutUser },
   ];
@@ -35,9 +34,6 @@ const UserOptions = ({ user }) => {
     navigate("/admin/dashboard");
   }
 
-  function treats() {
-    navigate("/treats");
-  }
   function account() {
     navigate("/account");
   }

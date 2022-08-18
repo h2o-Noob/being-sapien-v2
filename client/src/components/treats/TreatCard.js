@@ -21,14 +21,14 @@ const TreatCard = (treat) => {
         </Typography>
         {treat.treat.comments ? <Typography variant="body2">{treat.treat.comments}</Typography> : <Typography variant="body2">NO COMMENTS</Typography>}
       </CardContent>
-      <CardActions>{
+      {treat.treat.treatReport ? <CardActions>{
         treat.treat.treatReport.number ? <Typography sx={{ mb: 1.5 }} color="text.secondary">
         for <Link to={`/report/${treat.treat.treatReport._id}`}style={{textDecoration: "none", color: "rgb(29, 120, 0)"}} target="_blank">report number {treat.treat.treatReport.number}</Link>
     </Typography> : <Typography sx={{ mb: 1.5 }} color="text.secondary">
         From <b>{treat.treat.user.name}</b>
     </Typography>
         }
-      </CardActions>
+      </CardActions> : <h2>Report was deleted</h2>}
     </Card>
   );
 };

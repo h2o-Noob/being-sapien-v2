@@ -1,7 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
-import "./NewReport.css";
+import "./UpdateReport.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearError, createReport } from "../../actions/ReportsActions";
+import {
+  clearError,
+  createReport,
+  reportDetails,
+  updateReport,
+} from "../../actions/ReportsActions";
 import { useAlert } from "react-alert";
 import Button from "@mui/material/Button";
 // import AccountTreeIcon from "@mui/icons-material/AccountTree";
@@ -9,15 +14,17 @@ import Button from "@mui/material/Button";
 // import StorageIcon from "@mui/icons-material/Storage";
 // import SpellcheckIcon from "@mui/icons-material/Spellcheck";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import { NEW_REPORT_RESET } from "../../constants/ReportConstants";
-import { useNavigate } from "react-router-dom";
+import { UPDATE_REPORT_RESET } from "../../constants/ReportConstants";
+import { useNavigate, useParams } from "react-router-dom";
 
-const NewReport = () => {
+const UpdateReport = () => {
+  const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const alert = useAlert();
 
-  const { loading, error, success } = useSelector((state) => state.newReport);
+  const { loading, error, success } = useSelector((state) => state.report);
+  const { report } = useSelector((state) => state.reportDetails);
   const { isAuthenticated } = useSelector((state) => state.user);
 
   const [animal, setAnimal] = useState("");
@@ -43,15 +50,24 @@ const NewReport = () => {
   const states = ["Delhi", "Haryana", "UP", "Punjab", "Rajasthan"];
 
   useEffect(() => {
+    dispatch(reportDetails(params.id));
     if (error) {
       alert.error(error);
       dispatch(clearError());
     }
 
+    if(report.location)
+     {setAnimal(report.animal);
+      setnumberOfAnimals(report.numberOfAnimals);
+      setDescription(report.description);
+      setCity(report.location.city);
+      setState(report.location.state);
+      setAid(report.aid);
+      setAdress(report.location.adress);}
     if (success) {
-      alert.success("Report Created Successfully");
+      alert.success("Report Updates Successfully");
       navigate("/me/reports");
-      dispatch({ type: NEW_REPORT_RESET });
+      dispatch({ type: UPDATE_REPORT_RESET });
     }
 
     if (isAuthenticated == false) {
@@ -72,33 +88,38 @@ const NewReport = () => {
     myForm.set("location.adress", adress);
     myForm.set("location.city", city);
     myForm.set("location.state", state);
+    myForm.set("images.0.public_id", "sampleid");
+    myForm.set(
+      "images.0.url",
+      "https://s3.ap-southeast-1.amazonaws.com/images.deccanchronicle.com/dc-Cover-iaplhkvj3gupbjcps0nrhkhhh7-20200209053728.Medi.jpeg"
+    );
 
-    images.forEach((image) => {
-      myForm.append("images", image);
-    });
+    // images.forEach((image) => {
+    //   myForm.append("images", image);
+    // });
 
-    dispatch(createReport(myForm));
+    dispatch(updateReport(params.id, myForm));
   };
 
-    const createProductImagesChange = (e) => {
-      const files = Array.from(e.target.files);
+  //   const createProductImagesChange = (e) => {
+  //     const files = Array.from(e.target.files);
 
-      setImages([]);
-      setImagesPreview([]);
+  //     setImages([]);
+  //     setImagesPreview([]);
 
-      files.forEach((file) => {
-        const reader = new FileReader();
+  //     files.forEach((file) => {
+  //       const reader = new FileReader();
 
-        reader.onload = () => {
-          if (reader.readyState === 2) {
-            setImagesPreview((old) => [...old, reader.result]);
-            setImages((old) => [...old, reader.result]);
-          }
-        };
+  //       reader.onload = () => {
+  //         if (reader.readyState === 2) {
+  //           setImagesPreview((old) => [...old, reader.result]);
+  //           setImages((old) => [...old, reader.result]);
+  //         }
+  //       };
 
-        reader.readAsDataURL(file);
-      });
-    };
+  //       reader.readAsDataURL(file);
+  //     });
+  //   };
 
   return (
     <Fragment>
@@ -124,9 +145,10 @@ const NewReport = () => {
             <div>
               {/* <AttachMoneyIcon /> */}
               <input
-                type="text"
+                type="number"
                 placeholder="Number Of Animals"
                 required
+                value={numberOfAnimals}
                 onChange={(e) => setnumberOfAnimals(e.target.value)}
               />
             </div>
@@ -144,33 +166,41 @@ const NewReport = () => {
             </div>
 
             <div>
-                {/* <StorageIcon /> */}
-                <input
-                  type="text"
-                  placeholder="address/landmark nearby"
-                  value={adress}
-                  required
-                  onChange={(e) => setAdress(e.target.value)}
-                />
+              {/* <StorageIcon /> */}
+              <input
+                type="text"
+                placeholder="address/landmark nearby"
+                value={adress}
+                required
+                onChange={(e) => setAdress(e.target.value)}
+              />
             </div>
             <div>
               {/* <AccountTreeIcon /> */}
-              <select onChange={(e) => setCity(e.target.value)}>
-                <option value="">Choose Area</option>
-                {cities.map((city) => (
-                  <option key={city} value={city}>
-                    {city}
+              {report.location ? (
+                <select onChange={(e) => setCity(e.target.value)}>
+                  <option value={report.location.city}>
+                    {report.location.city}
                   </option>
-                ))}
-              </select>
-              <select onChange={(e) => setState(e.target.value)}>
-                <option value="">Choose State</option>
-                {states.map((state) => (
-                  <option key={state} value={state}>
-                    {state}
+                  {cities.map((city) => (
+                    <option key={city} value={city}>
+                      {city}
+                    </option>
+                  ))}
+                </select>
+              ) : null}
+              {report.location ? (
+                <select onChange={(e) => setState(e.target.value)}>
+                  <option value={report.location.state}>
+                    {report.location.state}
                   </option>
-                ))}
-              </select>
+                  {states.map((state) => (
+                    <option key={state} value={state}>
+                      {state}
+                    </option>
+                  ))}
+                </select>
+              ) : null}
             </div>
 
             <div>
@@ -189,7 +219,7 @@ const NewReport = () => {
                 type="file"
                 name="avatar"
                 accept="image/*"
-                onChange={createProductImagesChange}
+                // onChange={createProductImagesChange}
                 multiple
               />
             </div>
@@ -205,7 +235,7 @@ const NewReport = () => {
               type="submit"
               disabled={loading ? true : false}
             >
-              Create
+              Update
             </Button>
           </form>
         </div>
@@ -214,4 +244,4 @@ const NewReport = () => {
   );
 };
 
-export default NewReport;
+export default UpdateReport;

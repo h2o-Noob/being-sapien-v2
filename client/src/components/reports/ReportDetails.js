@@ -34,10 +34,6 @@ const ReportDetails = () => {
   const { isAuthenticated } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (error) {
-      alert.error(error);
-      dispatch(clearError());
-    }
 
     dispatch(reportDetails(params.id));
     dispatch(reportTreats(params.id));
@@ -62,19 +58,22 @@ const ReportDetails = () => {
         <Loader />
       ) : (
         <Fragment>
-            <div className="ProductDetails">
-              <Carousel.Item>
-                { report.images ? <img
+          <div className="ProductDetails">
+            <Carousel.Item>
+              {report && report.images ? (
+                <img
                   className="CarouselImage"
                   src={report.images[0].url}
                   alt="First slide"
-                /> : null}
-              </Carousel.Item>
-              <div>
-                <div className="detailsBlock-1">
-                  <h4>Report no. {report.number}</h4>
-                  <p>Report # {report._id}</p>
-                </div>
+                />
+              ) : null}
+            </Carousel.Item>
+            <div>
+              <div className="detailsBlock-1">
+                {report ? <h4>Report no. {report.number}</h4> : null}
+                {report ? <p>Report # {report._id}</p> : null}
+              </div>
+              {report ? (
                 <div className="detailsBlock-2">
                   <span className="detailsBlock-2-span">
                     {" "}
@@ -82,47 +81,52 @@ const ReportDetails = () => {
                     {report.numberOfAnimals > 1 ? "s" : null})
                   </span>
                 </div>
-                <br />
-                { report.location ? <div className="detailsBlock-3">
-                  <h3>{`${report.location.adress}`}</h3>
-                  <h3>{`${report.location.city}`}</h3>
-                  <h3>{`${report.location.state}`}</h3>
-                </div> : null}
-                <br />
-                { report.user ? <div className="detailsBlock-4">
-                  Description<p>{report.description}</p>
-                  <br />
-                  <h3>Uploaded by:</h3>
-                  <h5>{report.user.name}</h5>
-                  <h5>{report.user.email}</h5>
-                </div> : null}
-                <button onClick={submitReviewToggle} className="submitReview">
-                  treat
-                </button>
-              </div>
-            </div>
+              ) : null}
+              <br />
 
-            <Dialog
-              aria-labelledby="simple-dialog-title"
-              open={open}
-              onClose={submitReviewToggle}
-            >
-                <CreateTreat treat={report._id}/>
-              <DialogContent className="submitDialog"></DialogContent>
-            </Dialog>
-            {treats && !treats.length == 0 ? (
-              <h3 className="reviewsHeading">Treats</h3>
-            ) : null}
-            {treats && treats[0] ? (
-              <div className="reviews">
-                {treats &&
-                  treats.map((treat) => (
-                    <TreatCard className="reviewCard" treat={treat} />
-                  ))}
-              </div>
-            ) : (
-              <h3 className="reviewsHeading">No Treats Yet</h3>
-            )}
+              {report ? <div className="detailsBlock-3">
+                {report.location ? (
+                  <h3>{`${report.location.adress}`}</h3>
+                ) : null}
+                {report.location ? <h3>{`${report.location.city}`}</h3> : null}
+                {report.location ? <h3>{`${report.location.state}`}</h3> : null}
+              </div> : null}
+              <br />
+
+              {report ? <div className="detailsBlock-4">
+                Description{report ? <p>{report.description}</p> : null}
+                <br />
+                <h3>Uploaded by:</h3>
+                {report.user ? <h5>{report.user.name}</h5> : null}
+                {report.user ? <h5>{report.user.email}</h5> : null}
+              </div>: null}
+              <button onClick={submitReviewToggle} className="submitReview">
+                treat
+              </button>
+            </div>
+          </div>
+
+          <Dialog
+            aria-labelledby="simple-dialog-title"
+            open={open}
+            onClose={submitReviewToggle}
+          >
+            {report ? <CreateTreat treat={report._id} /> : null}
+            <DialogContent className="submitDialog"></DialogContent>
+          </Dialog>
+          {treats && !treats.length == 0 ? (
+            <h3 className="reviewsHeading">Treats</h3>
+          ) : null}
+          {treats && treats[0] ? (
+            <div className="reviews">
+              {treats &&
+                treats.map((treat) => (
+                  <TreatCard className="reviewCard" treat={treat} />
+                ))}
+            </div>
+          ) : (
+            <h3 className="reviewsHeading">No Treats Yet</h3>
+          )}
         </Fragment>
       )}
     </Fragment>

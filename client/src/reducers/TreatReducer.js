@@ -25,7 +25,7 @@ import {
   CLEAR_ERRORS,
 } from "../constants/TreatConstants";
 
-export const newTreatReducer = (state = {}, action) => {
+export const NewTreatReducer = (state = {}, action) => {
   switch (action.type) {
     case CREATE_TREAT_REQUEST:
       return {
@@ -55,7 +55,7 @@ export const newTreatReducer = (state = {}, action) => {
   }
 };
 
-export const reportTreatsReducer = (state = { treats: [] }, action) => {
+export const ReportTreatsReducer = (state = { treats: [] }, action) => {
   switch (action.type) {
     case REPORT_TREATS_REQUEST:
       return {
@@ -84,7 +84,7 @@ export const reportTreatsReducer = (state = { treats: [] }, action) => {
   }
 };
 
-export const myTreatsReducer = (state = { treats: [] }, action) => {
+export const MyTreatsReducer = (state = { treats: [] }, action) => {
   switch (action.type) {
     case MY_TREATS_REQUEST:
       return {

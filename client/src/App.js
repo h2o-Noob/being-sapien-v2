@@ -14,8 +14,11 @@ import ReportDetails from "./components/reports/ReportDetails";
 import WebFont from "webfontloader";
 import NewReport from "./components/reports/NewReport";
 import Treats from "./components/treats/Treats";
-import axios from "axios";
 import { StripeRoute } from "./routes/ProtectedRoute";
+import UpdateProfile from "./components/user/UpdateProfile";
+import UpdatePassword from "./components/user/UpdatePassword";
+import MyReports from "./components/reports/MyReports";
+import UpdateReport from "./components/reports/UpdateReport";
 
 function App() {
   const { isAuthenticated, user } = useSelector((state) => state.user);
@@ -39,11 +42,15 @@ function App() {
         <Route exact path="/Login" element={<LoginSignup />} />
         <Route exact path="/account" element={<Profile />} />
         <Route exact path="/reports" element={<Reports />} />
+        <Route exact path="/reports/update/:id" element={<UpdateReport />} />
         <Route element={<StripeRoute />}>
           <Route exact path="/report/:id" element={<ReportDetails />} />
         </Route>
         <Route exact path="/reports/new" element={<NewReport />} />
         <Route exact path="/me/treats" element={<Treats />} />
+        <Route exact path="/me/reports" element={<MyReports />} />
+        <Route exact path="/me/update" element={<UpdateProfile />} />
+        <Route exact path="/password/update" element={<UpdatePassword />} />
       </Routes>
     </BrowserRouter>
   );

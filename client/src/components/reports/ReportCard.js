@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
@@ -9,26 +9,46 @@ import CardActions from "@mui/material/CardActions";
 import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import { green } from "@mui/material/colors";
-import { useSelector } from "react-redux";
-import "./ReportCard.css"
+import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
+import "./ReportCard.css";
+import { Button } from "@mui/material";
+import { deleteReport } from "../../actions/ReportsActions";
+import { DELETE_REPORT_RESET } from "../../constants/ReportConstants";
+
 
 const ReportCard = ({ report }) => {
 
+  const dispatch = useDispatch()
+  const alert = useAlert()
+  const navigate = useNavigate()
+  
   const { isAuthenticated } = useSelector((state) => state.user);
+  const { isDeleted } = useSelector((state) => state.report);
 
-  const windowWidth = ()=>{
-    return window.innerWidth
+
+  const HandleDelete = ()=> {
+    dispatch(deleteReport(report._id))
   }
 
-  console.log(windowWidth())
+  useEffect(() => {
+    if (isDeleted) {
+      dispatch({ type: DELETE_REPORT_RESET });
+      alert.success("Report Deleted Successfully");
+      navigate("/account");
+    }
+
+  }, [dispatch, alert, useNavigate, isDeleted])
+  
+
 
   return (
     <Fragment>
       {report && (
-        <Card style={{ margin: "1rem", backgroundColor: "rgb(201, 199, 199)"}}>
+        <Card style={{ margin: "1rem", backgroundColor: "rgb(201, 199, 199)" }}>
           <CardHeader
             avatar={
-              report ? (
+              report && report.user.avatar ? (
                 <Avatar
                   sx={{ bgcolor: green[500] }}
                   aria-label="recipe"
@@ -54,13 +74,40 @@ const ReportCard = ({ report }) => {
               {report.description}
             </Typography>
           </CardContent>
-          <CardActions disableSpacing>
-            <Link
-              to={isAuthenticated ? `/report/${report._id}` : "/login"}
-              style={{ textDecoration: "none", fontFamily: "cursive", color: "green"}}
-            >
-              Learn More
-            </Link>
+          <CardActions disableSpacing style={{display: "flex", justifyContent: "space-between"}}>
+            {report.user.avatar ? (
+              <Link
+                to={isAuthenticated ? `/report/${report._id}` : "/login"}
+                style={{
+                  textDecoration: "none",
+                  fontFamily: "cursive",
+                  color: "green",
+                }}
+              >
+                Learn More
+              </Link>
+            ) : (
+              <Link
+                to={`/reports/update/${report._id}`}
+                style={{
+                  textDecoration: "none",
+                  fontFamily: "cursive",
+                  color: "green",
+                }}
+              >
+                UPDATE
+              </Link>
+            )}
+            {!report.user.avatar ? (
+              <Button style={{
+                textDecoration: "none",
+                fontFamily: "cursive",
+                color: "green",
+              }}
+              onClick={HandleDelete}>
+                Delete
+              </Button>
+            ) : null}
           </CardActions>
         </Card>
       )}
