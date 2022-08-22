@@ -130,7 +130,7 @@ const UpdateReport = () => {
             encType="multipart/form-data"
             onSubmit={createReportSubmitHandler}
           >
-            <h1>Create Report</h1>
+            <h1>Update Report</h1>
 
             <div>
               {/* <SpellcheckIcon /> */}
