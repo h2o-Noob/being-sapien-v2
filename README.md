@@ -4,7 +4,6 @@ Hi! My name is **ARINDAM RAINA**, I have created this project to learn MERN Stac
 Being Sapien is a WebSite where you can report any stray/lost animal you found near house, school, college, workplace or anywhere. The idea is to locate these animal and 
 provide necessary aid to them.
 
-check out the protoype at: https://beingsapien.herokuapp.com/
 
 # Install Dependencies
 
